@@ -58,7 +58,7 @@ def runCollector(journal: Journal_ABC) -> DataFrame:
     "--journal",
     "journal",
     required=True,
-    type=click.Choice(choices=["plos"]),
+    type=click.Choice(choices=["plos", "scientific-reports"]),
     help="Search for documents in a supported mega-journal",
 )
 @click.option(
@@ -100,6 +100,8 @@ def main(outputPath: Path, journal: str) -> None:
     journalClass: Journal_ABC
     match journal:
         case "plos":
+            journalClass = PLOS()
+        case "scientific-reports":
             journalClass = PLOS()
         case _:
             exit(1)
